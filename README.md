@@ -3,9 +3,6 @@
 A modern, responsive web interface for **[tgpt](https://github.com/aandrew-me/tgpt)** (Terminal GPT).  
 This project creates a beautiful "Messenger-style" chat UI that runs locally or on your VPS, allowing you to use AI without API keys.
 
-![Screenshot](screenshot.png)
-*(Please upload a screenshot of your app and name it screenshot.png)*
-
 ## ✨ Features
 
 - **Zero API Keys:** Powered by `tgpt`, free to use.
