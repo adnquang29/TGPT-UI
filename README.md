@@ -51,7 +51,8 @@ flask run --host=0.0.0.0
   - Truy cập `/` hoặc `/chat-flask` để bắt đầu chat.
   - Truy cập `/chat-flask/results` để xem lịch sử chat (nếu đã cấu hình lưu trữ).
 
------
+---
 
-```
-```
+## License
+
+Project cá nhân – miễn phí sử dụng.
