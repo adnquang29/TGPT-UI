@@ -32,7 +32,12 @@ python3 -m venv venv
 source venv/bin/activate  # Trên Windows dùng: venv\Scripts\activate
 pip install flask
 ```
+Chạy TGPT UI tại thư mục này
 
+```bash
+curl -sL https://github.com/aandrew-me/tgpt/releases/download/v2.8.0/tgpt-linux-amd64 -o tgpt
+chmod +x tgpt
+```
 ## Chạy ứng dụng
 
 Khởi động server với lệnh sau (cho phép truy cập từ IP ngoài):
