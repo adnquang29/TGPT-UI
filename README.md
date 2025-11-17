@@ -1,4 +1,3 @@
-````markdown
 # TGPT Web UI 🤖
 
 A modern, responsive web interface for **[tgpt](https://github.com/aandrew-me/tgpt)** (Terminal GPT).  
