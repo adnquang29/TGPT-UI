@@ -15,7 +15,7 @@ Dự án này cung cấp giao diện chat phong cách Messenger, chạy trực t
 
 ### 1. Tải mã nguồn
 ```bash
-git clone [https://github.com/adnquang29/TGPT-UI.git](https://github.com/adnquang29/TGPT-UI.git)
+git clone https://github.com/adnquang29/TGPT-UI.git
 cd TGPT-UI
 ````
 
