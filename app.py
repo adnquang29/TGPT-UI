@@ -5,15 +5,16 @@ import re
 app = Flask(__name__)
 
 def clean_output(text):
-    """Hàm làm sạch dữ liệu triệt để"""
+    """Hàm làm sạch dữ liệu triệt để và thay thế tên"""
     # 1. Xóa mã ANSI (màu sắc, di chuyển con trỏ...)
     ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
     text = ansi_escape.sub('', text)
     
-    # 2. Tách thành từng dòng để xử lý
+    text = re.sub(r'(?i)Phind', 'adnquang29', text)
+    
+    # 2. Tách thành từng dòng để xử lý rác hệ thống
     lines = text.split('\n')
     
-    # 3. Chỉ giữ lại những dòng KHÔNG chứa chữ "Loading" và ký tự xoay
     clean_lines = []
     for line in lines:
         # Nếu dòng chứa chữ Loading hoặc các ký tự braille -> Bỏ qua
@@ -21,8 +22,15 @@ def clean_output(text):
             continue
         clean_lines.append(line)
     
-    # 4. Gộp lại và xóa khoảng trắng thừa đầu đuôi
+    # 3. Gộp lại
     return "\n".join(clean_lines).strip()
+
+def is_vietnamese(text):
+    """
+    Kiểm tra xem chuỗi có chứa ký tự đặc biệt của tiếng Việt không.
+    """
+    vietnamese_chars = "àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ"
+    return any(char in vietnamese_chars for char in text)
 
 @app.route('/')
 def index():
@@ -31,17 +39,31 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.json
-    prompt = data.get('prompt')
+    user_prompt = data.get('prompt')
     
-    if not prompt:
+    if not user_prompt:
         return jsonify({'error': 'Không có nội dung'}), 400
 
     try:
-        # Thử thêm '-q' (quiet mode) để tắt animation ngay từ nguồn
-        # Nếu tgpt bản cũ không hiểu '-q', nó có thể báo lỗi, nên ta dùng try/catch ở output
-        cmd = ['./tgpt', '-q', prompt]
+        if is_vietnamese(user_prompt):
+            # Nếu phát hiện tiếng Việt
+            print("Detect: Vietnamese")
+            system_instruction = (
+                "\n\n[Instruction: Detect Vietnamese input. Please answer in Vietnamese. "
+                "Use Markdown for formatting. Do NOT explain about Markdown syntax.]"
+            )
+        else:
+            # Nếu không (Tiếng Anh hoặc ngôn ngữ khác)
+            print("Detect: English/Other")
+            system_instruction = (
+                "\n\n[Instruction: Please answer in English. "
+                "Use Markdown for formatting. Do NOT explain about Markdown syntax.]"
+            )
         
-        # Lưu ý: Nếu lệnh trên lỗi do không hiểu '-q', hãy đổi thành: ['./tgpt', prompt]
+        full_prompt = f"{user_prompt} {system_instruction}"
+        # ------------------------------------
+
+        cmd = ['./tgpt', '-q', full_prompt]
         
         result = subprocess.run(
             cmd, 
@@ -50,15 +72,10 @@ def chat():
             encoding='utf-8'
         )
         
-        # Lấy output dù lệnh thành công hay thất bại (đôi khi tgpt trả về stderr vẫn là text)
         raw_output = result.stdout if result.stdout else result.stderr
-        
-        # Gọi hàm làm sạch "siêu cấp"
         final_response = clean_output(raw_output)
 
-        # Kiểm tra nếu kết quả rỗng (do lọc quá tay hoặc lỗi)
         if not final_response:
-             # Fallback: thử trả về raw nhưng đã strip ANSI
              ansi_escape = re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])')
              final_response = ansi_escape.sub('', raw_output)
 
