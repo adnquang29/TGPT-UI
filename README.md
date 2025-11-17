@@ -1,90 +1,57 @@
 # TGPT Web UI 🤖
 
-A modern, responsive web interface for **[tgpt](https://github.com/aandrew-me/tgpt)** (Terminal GPT).  
-This project creates a beautiful "Messenger-style" chat UI that runs locally or on your VPS, allowing you to use AI without API keys.
+Giao diện web cho (Terminal GPT).  
+Dự án này cung cấp giao diện chat phong cách Messenger, chạy trực tiếp trên máy tính cá nhân hoặc VPS mà không cần API Key trả phí.
 
-## ✨ Features
+## ✨ Tính năng
 
-- **Zero API Keys:** Powered by `tgpt`, free to use.
-- **Modern UI:** Clean, "Messenger-style" interface with bubbles.
-- **Dark/Light Mode:** Toggle themes with one click (auto-saves preference).
-- **Responsive:** Works perfectly on Desktop and Mobile (max-width optimized).
-- **Clean Output:** Automatically filters out CLI loading animations and ANSI codes.
+- **Không cần API Key:** Hoạt động dựa trên `tgpt`.
+- **Giao diện Messenger:** Bong bóng chat xanh/xám, thân thiện.
+- **Chế độ Sáng/Tối (Dark Mode):** Chuyển đổi nhanh, tự động lưu cấu hình.
+- **Responsive:** Hiển thị tối ưu trên cả máy tính và điện thoại di động.
+- **Output sạch:** Tự động lọc bỏ các ký tự loading/animation thừa từ dòng lệnh.
 
-## 🛠️ Prerequisites
+## 🚀 Cài đặt
 
-- **Python 3.x**
-- **Linux/macOS** (Recommended) or Windows.
-- **tgpt binary**: The core engine.
-
-## 🚀 Installation
-
-### 1. Clone the repository
+### 1. Tải mã nguồn
 ```bash
-git clone [https://github.com/YOUR_USERNAME/REPO_NAME.git](https://github.com/YOUR_USERNAME/REPO_NAME.git)
-cd REPO_NAME
+git clone [https://github.com/adnquang29/TGPT-UI.git](https://github.com/adnquang29/TGPT-UI.git)
+cd TGPT-UI
 ````
 
-### 2\. Download `tgpt` binary
+### 2\. Chuẩn bị `tgpt`
 
-You need the `tgpt` executable in the project root folder.
+Hãy đảm bảo bạn đã có file thực thi `tgpt` nằm ngay trong thư mục gốc của dự án này (ngang hàng với file `app.py`).
 
-**For Linux/macOS:**
+### 3\. Cài đặt thư viện
 
-```bash
-curl -sL [https://github.com/aandrew-me/tgpt/releases/download/v2.8.0/tgpt-linux-amd64](https://github.com/aandrew-me/tgpt/releases/download/v2.8.0/tgpt-linux-amd64) -o tgpt
-chmod +x tgpt
-```
-
-*(Note: Check the [tgpt releases](https://github.com/aandrew-me/tgpt/releases) for the latest version suitable for your OS).*
-
-### 3\. Install Python dependencies
-
-Create a virtual environment (recommended) and install Flask.
+Khuyên dùng môi trường ảo (virtual environment):
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # Trên Windows dùng: venv\Scripts\activate
 pip install flask
 ```
 
-## 🏃‍♂️ Usage
+## 🏃‍♂️ Chạy ứng dụng
 
-1.  **Start the server:**
+Khởi động server với lệnh sau (cho phép truy cập từ IP ngoài):
 
-    ```bash
-    python app.py
-    ```
-
-2.  **Access the UI:**
-
-      - **Local:** Open `http://localhost:5000`
-      - **Server/VPS:** Open `http://YOUR_SERVER_IP:5000`
-
-    *(Make sure port 5000 is allowed in your firewall)*
-
-## 📂 Project Structure
-
-```
-├── app.py              # Flask backend (handles subprocess & regex cleaning)
-├── tgpt                # The executable binary (must be present)
-├── templates
-│   └── index.html      # Single-file Frontend (HTML/CSS/JS)
-├── README.md           # This file
-└── .gitignore          # Git ignore rules
+```bash
+flask run --host=0.0.0.0
 ```
 
-## 🔧 Troubleshooting
+### Truy cập
 
-  - **"Server chưa cài đặt tgpt" / File Not Found:**
-    Make sure the `tgpt` file is in the **same folder** as `app.py` and has execution permissions (`chmod +x tgpt`).
+  - **Mặc định:** [http://127.0.0.1:5000](http://127.0.0.1:5000)
+  - **IP nội bộ:** Bạn có thể dùng IP LAN của máy (ví dụ: `192.168.1.x:5000`) để truy cập từ điện thoại hoặc máy khác.
 
-  - **Permission Denied:**
-    Run `chmod +x tgpt` again.
+### Các đường dẫn:
 
-## 🤝 Credits
-
-  - **Core AI Tool:** [tgpt](https://github.com/aandrew-me/tgpt) by aandrew-me.
-  - **UI/Wrapper:** Developed by You.
+  - Truy cập `/` hoặc `/chat-flask` để bắt đầu chat.
+  - Truy cập `/chat-flask/results` để xem lịch sử chat (nếu đã cấu hình lưu trữ).
 
 -----
+
+```
+```
