@@ -1,9 +1,9 @@
-# TGPT Web UI 🤖
+# TGPT Web UI
 
 Giao diện web cho (Terminal GPT).  
 Dự án này cung cấp giao diện chat phong cách Messenger, chạy trực tiếp trên máy tính cá nhân hoặc VPS mà không cần API Key trả phí.
 
-## ✨ Tính năng
+## Tính năng
 
 - **Không cần API Key:** Hoạt động dựa trên `tgpt`.
 - **Giao diện Messenger:** Bong bóng chat xanh/xám, thân thiện.
@@ -11,7 +11,7 @@ Dự án này cung cấp giao diện chat phong cách Messenger, chạy trực t
 - **Responsive:** Hiển thị tối ưu trên cả máy tính và điện thoại di động.
 - **Output sạch:** Tự động lọc bỏ các ký tự loading/animation thừa từ dòng lệnh.
 
-## 🚀 Cài đặt
+## Cài đặt
 
 ### 1. Tải mã nguồn
 ```bash
@@ -33,7 +33,7 @@ source venv/bin/activate  # Trên Windows dùng: venv\Scripts\activate
 pip install flask
 ```
 
-## 🏃‍♂️ Chạy ứng dụng
+## Chạy ứng dụng
 
 Khởi động server với lệnh sau (cho phép truy cập từ IP ngoài):
 
